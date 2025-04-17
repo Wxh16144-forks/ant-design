@@ -19,7 +19,7 @@ group:
 >
 > 自 `4.24.0` 起，由于组件从 class 重构成 FC，之前一些获取 `ref` 并调用内部实例方法的写法都会失效
 
-## 代码演示
+## 代码演示 {#examples}
 
 <!-- prettier-ignore -->
 <code src="./demo/basic.tsx" iframe="200">基本</code>
@@ -75,6 +75,6 @@ group:
 | target | 该属性指定在何处显示链接的资源 | string    | -      |      |
 | title  | 文字内容                       | ReactNode | -      |      |
 
-## 主题变量（Design Token）
+## 主题变量（Design Token）{#design-token}
 
 <ComponentTokenTable component="Anchor"></ComponentTokenTable>
