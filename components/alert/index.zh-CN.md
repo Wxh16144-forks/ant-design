@@ -17,7 +17,7 @@ group:
 - 当某个页面需要向用户显示警告的信息时。
 - 非浮层的静态展现形式，始终展现，不会自动消失，用户可以点击关闭。
 
-## 代码演示
+## 代码演示 {#examples}
 
 <!-- prettier-ignore -->
 <code src="./demo/basic.tsx">基本</code>
@@ -57,6 +57,6 @@ group:
 | description | 自定义错误内容，如果未指定会展示报错堆栈 | ReactNode | {{ error stack }} |  |
 | message | 自定义错误标题，如果未指定会展示原生报错信息 | ReactNode | {{ error }} |  |
 
-## Design Token
+## 主题变量（Design Token）{#design-token}
 
 <ComponentTokenTable component="Alert"></ComponentTokenTable>
