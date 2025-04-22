@@ -56,7 +56,7 @@ const genTimelineStyle: GenerateStyle<TimelineToken, CSSObject> = (token) => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          width: calc(token.margin).add(token.itemHeadSize).equal(),
+          minWidth: token.padding,
         },
 
         '&-head': {
@@ -64,6 +64,9 @@ const genTimelineStyle: GenerateStyle<TimelineToken, CSSObject> = (token) => {
           height: token.itemHeadSize,
           backgroundColor: token.dotBg,
           border: `${unit(token.dotBorderWidth)} ${token.lineType} transparent`,
+          marginBlock: calc(calc(token.fontSize).mul(token.lineHeight).sub(token.fontSize))
+            .sub(token.lineWidth)
+            .equal(),
           borderRadius: '50%',
 
           '&-blue': {
@@ -87,15 +90,74 @@ const genTimelineStyle: GenerateStyle<TimelineToken, CSSObject> = (token) => {
           },
         },
 
+        '&-head-custom': {
+          width: 'auto',
+          height: 'auto',
+          lineHeight: 1,
+          border: 0,
+          borderRadius: 0,
+          backgroundColor: 'unset',
+        },
+
         '&-tail': {
           flexGrow: 1,
           borderInlineStart: `${unit(token.tailWidth)} ${token.lineType} ${token.tailColor}`,
         },
 
-        '&-content': {
-          flex: 1,
-          paddingBottom: token.itemPaddingBottom,
+        '&::before': {
+          content: '""',
+          display: 'none',
         },
+
+        '&-label': {
+          textAlign: 'end',
+        },
+
+        '&-content, &-label, &::before': {
+          flex: 1,
+          paddingBlockEnd: token.itemPaddingBottom,
+          paddingInline: calc(token.padding).div(2).equal(),
+        },
+
+        '&-last': {
+          [`${componentCls}-item-tail`]: {
+            display: 'none',
+          },
+
+          [`${componentCls}-item-content`]: {
+            minHeight: calc(token.controlHeightLG).mul(1.2).add(token.itemPaddingBottom).equal(),
+          },
+        },
+
+        '&-pending': {
+          [`${componentCls}-item-head`]: {
+            fontSize: token.fontSizeSM,
+            backgroundColor: 'transparent',
+          },
+
+          [`${componentCls}-item-tail`]: {
+            display: 'none',
+          },
+        },
+      },
+
+      '&&-label': {
+        [`> ${componentCls}-item`]: {
+          '&::before': {
+            content: '""',
+            display: 'block',
+          },
+
+          [`&:has(${componentCls}-item-label)::before`]: {
+            display: 'none',
+          },
+        },
+      },
+
+      [`&&-pending ${componentCls}-item-last ${componentCls}-item-tail`]: {
+        display: 'block',
+        height: `calc(100% - ${unit(token.margin)})`,
+        borderInlineStart: `${unit(token.tailWidth)} dotted ${token.tailColor}`,
       },
 
       // [`${componentCls}-item`]: {
