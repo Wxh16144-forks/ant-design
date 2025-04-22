@@ -13,6 +13,7 @@ import chalk from 'chalk';
 import { parse } from 'css-tree';
 import type { SyntaxParseError } from 'css-tree';
 import { validate } from 'csstree-validator';
+import { format } from '@prettier/sync';
 import fs from 'fs-extra';
 import isCI from 'is-ci';
 import ReactDOMServer from 'react-dom/server';
@@ -82,7 +83,14 @@ async function checkCSSContent() {
         const [, name] = filePath.split(path.sep);
         const writeLocalPath = path.join(tmpDir, `${name}.css`);
         showPath = path.relative(process.cwd(), writeLocalPath);
-        fs.writeFileSync(writeLocalPath, `/* ${filePath} */\n${css}`);
+        // fs.writeFileSync(writeLocalPath, `/* ${filePath} */\n${css}`);
+        const rawStyle = `/* ${filePath} */\n${css}`;
+        try {
+          const formattedStyle = format(rawStyle, { parser: 'css' });
+          fs.writeFileSync(writeLocalPath, formattedStyle);
+        } catch {
+          fs.writeFileSync(writeLocalPath, rawStyle);
+        }
       }
       errors.set(filePath, cssValidate(css, showPath));
     },
