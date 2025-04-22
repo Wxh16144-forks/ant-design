@@ -1,5 +1,5 @@
 import * as React from 'react';
-import classNames from 'classnames';
+import cx from 'classnames';
 
 import type { LiteralUnion } from '../_util/type';
 import { ConfigContext } from '../config-provider';
@@ -44,7 +44,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
   const { getPrefixCls } = React.useContext(ConfigContext);
 
   const prefixCls = getPrefixCls('timeline', customizePrefixCls);
-  const itemClassName = classNames(
+  const itemClassName = cx(
     `${prefixCls}-item`,
     {
       [`${prefixCls}-item-pending`]: pending,
@@ -54,7 +54,7 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
 
   const customColor = /blue|red|green|gray/.test(color || '') ? undefined : color;
 
-  const dotClassName = classNames(`${prefixCls}-item-head`, {
+  const dotClassName = cx(`${prefixCls}-item-head`, {
     [`${prefixCls}-item-head-custom`]: !!dot,
     [`${prefixCls}-item-head-${color}`]: !customColor,
   });
@@ -63,24 +63,29 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
     <li {...restProps} className={itemClassName}>
       {label && (
         <div
-          className={classNames(`${prefixCls}-item-label`, timelineClassNames?.label)}
+          className={cx(`${prefixCls}-item-label`, timelineClassNames?.label)}
           style={styles?.label}
         >
           {label}
         </div>
       )}
       <div
-        className={classNames(`${prefixCls}-item-tail`, timelineClassNames?.tail)}
-        style={styles?.tail}
-      />
-      <div
-        className={classNames(dotClassName, timelineClassNames?.indicator)}
-        style={{ ...{ borderColor: customColor, color: customColor }, ...styles?.indicator }}
+        className={cx(`${prefixCls}-item-separator`, timelineClassNames?.separator)}
+        style={styles?.separator}
       >
-        {dot}
+        <div
+          className={cx(dotClassName, timelineClassNames?.indicator)}
+          style={{ ...{ borderColor: customColor, color: customColor }, ...styles?.indicator }}
+        >
+          {dot}
+        </div>
+        <div
+          className={cx(`${prefixCls}-item-tail`, timelineClassNames?.tail)}
+          style={styles?.tail}
+        />
       </div>
       <div
-        className={classNames(`${prefixCls}-item-content`, timelineClassNames?.content)}
+        className={cx(`${prefixCls}-item-content`, timelineClassNames?.content)}
         style={styles?.content}
       >
         {children}

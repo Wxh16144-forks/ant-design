@@ -11,7 +11,15 @@ import TimelineItem from './TimelineItem';
 import TimelineItemList from './TimelineItemList';
 import useItems from './useItems';
 
-export type SemanticName = 'root' | 'indicator' | 'tail' | 'content' | 'item' | 'label';
+export type SemanticName =
+  | 'root'
+  | 'indicator'
+  | 'tail'
+  | 'content'
+  | 'item'
+  | 'label'
+  | 'separator';
+
 export interface TimelineProps {
   prefixCls?: string;
   className?: string;
