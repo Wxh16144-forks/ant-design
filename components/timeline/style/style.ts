@@ -104,7 +104,7 @@ const genTimelineStyle: GenerateStyle<TimelineToken, CSSObject> = (token) => {
           borderInlineStart: `${unit(token.tailWidth)} ${token.lineType} ${token.tailColor}`,
         },
 
-        '&::before': {
+        '&::before, &:has(&-label)': {
           content: '""',
           display: 'none',
         },
@@ -158,6 +158,20 @@ const genTimelineStyle: GenerateStyle<TimelineToken, CSSObject> = (token) => {
         display: 'block',
         height: `calc(100% - ${unit(token.margin)})`,
         borderInlineStart: `${unit(token.tailWidth)} dotted ${token.tailColor}`,
+      },
+
+      '&&-alternate': {
+        [`> ${componentCls}-item`]: {
+          '&::before': {
+            display: 'block',
+          },
+          '&:nth-of-type(even)': {
+            flexDirection: 'row-reverse',
+            [`${componentCls}-item-content`]: {
+              textAlign: 'end',
+            },
+          },
+        },
       },
 
       // [`${componentCls}-item`]: {
@@ -352,13 +366,13 @@ const genTimelineStyle: GenerateStyle<TimelineToken, CSSObject> = (token) => {
       // },
 
       // ====================== RTL =======================
-      '&-rtl': {
-        direction: 'rtl',
+      // '&-rtl': {
+      //   direction: 'rtl',
 
-        [`${componentCls}-item-head-custom`]: {
-          transform: `translate(50%, -50%)`,
-        },
-      },
+      //   [`${componentCls}-item-head-custom`]: {
+      //     transform: `translate(50%, -50%)`,
+      //   },
+      // },
     },
   };
 };
