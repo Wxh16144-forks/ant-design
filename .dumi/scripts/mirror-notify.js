@@ -25,6 +25,17 @@
   const prefixCls = 'antd-mirror-notify';
   const primaryColor = '#1677ff';
 
+  // === track ===
+  function track(...args) {
+    if (typeof window.gtag === 'function') {
+      window.gtag(...args);
+    } else {
+      setTimeout(() => {
+        if (typeof window.gtag === 'function') window.gtag(...args);
+      }, 5 * 1000);
+    }
+  }
+
   function insertCss() {
     const style = document.createElement('style');
     style.innerHTML = `
@@ -133,6 +144,11 @@
   }
 
   function createNotification() {
+    track('event', '显示', {
+      event_category: '前往国内镜像',
+      event_label: officialChinaMirror,
+    });
+
     insertCss();
 
     const notify = document.createElement('div');
@@ -158,13 +174,21 @@
     });
 
     notify.querySelector(`.${prefixCls}-action`).addEventListener('click', () => {
-      if (window.gtag) {
-        window.gtag('event', '点击', {
-          event_category: '前往国内镜像',
-          event_label: officialChinaMirror,
-        });
-      }
+      track('event', '点击按钮', {
+        event_category: '前往国内镜像',
+        event_label: officialChinaMirror,
+      });
       window.location.href = officialChinaMirror;
+      removeNotify();
+    });
+
+    notify.querySelector(`.${prefixCls}-message a`).addEventListener('click', (e) => {
+      e.preventDefault();
+      track('event', '点击超链', {
+        event_category: '前往国内镜像',
+        event_label: officialChinaMirror,
+      });
+      window.location.href = e.target.href;
       removeNotify();
     });
 
