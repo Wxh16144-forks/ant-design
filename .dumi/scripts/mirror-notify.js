@@ -30,6 +30,7 @@
     if (typeof window.gtag === 'function') {
       window.gtag(...args);
     } else {
+      // 可能因为网络不畅导致 gtag 未加载
       setTimeout(() => {
         if (typeof window.gtag === 'function') window.gtag(...args);
       }, 5 * 1000);
@@ -254,7 +255,7 @@
 
   // 交给 React effect 清理
   window[SIGN] = function stopMirrorNotify() {
-    window[SIGN].YES = Date.now();
-    clearTimeout(reactTimeoutId);
+    // window[SIGN].YES = Date.now();
+    // clearTimeout(reactTimeoutId);
   };
 })();
