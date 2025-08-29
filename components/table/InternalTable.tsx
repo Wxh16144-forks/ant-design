@@ -86,7 +86,7 @@ export interface TableProps<RecordType = AnyObject>
     | 'emptyText'
   > {
   dropdownPrefixCls?: string;
-  dataSource?: RcTableProps<RecordType>['data'];
+  dataSource?: RcTableProps<RecordType>['data'] | null;
   columns?: ColumnsType<RecordType>;
   pagination?: false | TablePaginationConfig;
   loading?: boolean | SpinProps;
@@ -552,7 +552,7 @@ const InternalTable = <RecordType extends AnyObject = AnyObject>(
     // For empty arrays (datasource={[]}), both loading and empty states would normally be shown.
     // discussion https://github.com/ant-design/ant-design/issues/54601#issuecomment-3158091383
     if (spinProps?.spinning && rawData === EMPTY_LIST) {
-      return null;
+      return <div aria-hidden className={`${prefixCls}-spinning-placeholder`} />;
     }
     if (typeof locale?.emptyText !== 'undefined') {
       return locale.emptyText;

@@ -85,7 +85,7 @@ const App: React.FC = () => {
   const [showHeader, setShowHeader] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
   const [rowSelection, setRowSelection] = useState<TableRowSelection<DataType> | undefined>({});
-  const [hasData, setHasData] = useState(true);
+  const [dataState, setDataState] = useState<'with-data' | 'empty' | 'null'>('with-data');
   const [tableLayout, setTableLayout] = useState<string>('unset');
   const [top, setTop] = useState<TablePaginationPosition>('none');
   const [bottom, setBottom] = useState<TablePaginationPosition>('bottomRight');
@@ -141,8 +141,8 @@ const App: React.FC = () => {
     setXScroll(e.target.value);
   };
 
-  const handleDataChange = (newHasData: boolean) => {
-    setHasData(newHasData);
+  const handleDataChange = (e: RadioChangeEvent) => {
+    setDataState(e.target.value);
   };
 
   const scroll: { x?: number | string; y?: number | string } = {};
@@ -172,6 +172,19 @@ const App: React.FC = () => {
     tableLayout: tableLayout === 'unset' ? undefined : (tableLayout as TableProps['tableLayout']),
   };
 
+  const getDataSource = () => {
+    switch (dataState) {
+      case 'with-data':
+        return data;
+      case 'empty':
+        return [];
+      case 'null':
+        return null;
+      default:
+        return data;
+    }
+  };
+
   return (
     <>
       <Form layout="inline" className="table-demo-control-bar" style={{ marginBottom: 16 }}>
@@ -199,8 +212,12 @@ const App: React.FC = () => {
         <Form.Item label="Fixed Header">
           <Switch checked={!!yScroll} onChange={handleYScrollChange} />
         </Form.Item>
-        <Form.Item label="Has Data">
-          <Switch checked={!!hasData} onChange={handleDataChange} />
+        <Form.Item label="Data">
+          <Radio.Group value={dataState} onChange={handleDataChange}>
+            <Radio.Button value="with-data">Exist</Radio.Button>
+            <Radio.Button value="empty">Empty</Radio.Button>
+            <Radio.Button value="null">Null</Radio.Button>
+          </Radio.Group>
         </Form.Item>
         <Form.Item label="Ellipsis">
           <Switch checked={!!ellipsis} onChange={handleEllipsisChange} />
@@ -246,7 +263,7 @@ const App: React.FC = () => {
         {...tableProps}
         pagination={{ position: [top, bottom] }}
         columns={tableColumns}
-        dataSource={hasData ? data : []}
+        dataSource={getDataSource()}
         scroll={scroll}
       />
     </>

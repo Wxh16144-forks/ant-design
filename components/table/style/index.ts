@@ -388,6 +388,12 @@ const genTableStyle: GenerateStyle<TableToken, CSSObject> = (token) => {
         color: tableFooterTextColor,
         background: tableFooterBg,
       },
+
+      // ======================== Spinning Placeholder =================
+      [`${componentCls}-spinning-placeholder`]: {
+        height: unit(calc(token.lineHeight).mul(token.fontSize).mul(2).equal()),
+        width: '100%',
+      },
     },
   };
 };
