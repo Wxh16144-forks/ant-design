@@ -122,7 +122,7 @@ Common props ref：[Common props](/docs/react/common-props)
 | bordered | Whether to show all table borders | boolean | false |  |
 | columns | Columns of table | [ColumnsType](#column)\[] | - |  |
 | components | Override default table elements | [TableComponents](https://github.com/react-component/table/blob/75ee0064e54a4b3215694505870c9d6c817e9e4a/src/interface.ts#L129) | - |  |
-| dataSource | Data record array to be displayed | object\[] | - |  |
+| dataSource | Data record array to be displayed. When there is no data, "No Data" will be shown. When `loading` is `true` and `dataSource` is `null`, "No Data" will not be shown | object\[] \| null | - |  |
 | expandable | Config expandable content | [expandable](#expandable) | - |  |
 | footer | Table footer renderer | function(currentPageData) | - |  |
 | getPopupContainer | The render container of dropdowns in table | (triggerNode) => HTMLElement | () => TableHtmlElement |  |
