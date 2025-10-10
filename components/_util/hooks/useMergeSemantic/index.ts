@@ -50,8 +50,10 @@ export function mergeClassNames<
         } else {
           // Covert string to object structure
           const { _default: defaultField } = keySchema;
-          acc[key] = acc[key] || {};
-          acc[key][defaultField!] = clsx(acc[key][defaultField!], curVal);
+          if (defaultField) {
+            acc[key] ??= {};
+            acc[key][defaultField] = clsx(acc[key][defaultField], curVal);
+          }
         }
       } else {
         // Flatten fill
