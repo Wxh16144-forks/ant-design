@@ -46,7 +46,7 @@ const ColorChunk: React.FC<React.PropsWithChildren<ColorChunkProps>> = (props) =
         placement="left"
         content={<div hidden />}
         styles={{
-          body: {
+          content: {
             backgroundColor: dotColor,
             width: 120,
             height: 120,
