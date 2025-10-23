@@ -23,7 +23,6 @@ type SharedProps = Pick<
   | 'prefixCls'
   | 'getContainer'
   | 'maxCount'
-  | 'stack'
   | 'duration'
   | 'showProgress'
   | 'pauseOnHover'
@@ -71,6 +70,7 @@ export interface NotificationConfig extends SharedProps {
   bottom?: number;
   placement?: NotificationPlacement;
   rtl?: boolean;
+  stack?: RcNotificationConfig['stack'];
   /**
    * @private It may be internal, uncertain, so it's better not to use it.
    */
