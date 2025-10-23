@@ -49,7 +49,6 @@ export default antfu(
       'react/no-children-only': 'off',
       'react/no-unstable-default-props': 'off',
       'react/no-create-ref': 'off', // TODO: remove this
-      'react-hooks-extra/prefer-use-state-lazy-initialization': 'off',
       'perfectionist/sort-imports': 'off',
       'perfectionist/sort-named-imports': 'off',
       'perfectionist/sort-named-exports': 'off',
@@ -62,13 +61,10 @@ export default antfu(
       /* turn off 升级 @antfu/eslint-config@6 带来的 warning */
       'react/no-unnecessary-use-prefix': 'off',
       'react-hooks/use-memo': 'off',
-      'react-hooks/immutability': 'off',
       'react-hooks/globals': 'off',
       'react-hooks/preserve-manual-memoization': 'off',
       'react-hooks/set-state-in-effect': 'off',
       'react-hooks/refs': 'off',
-      'react-hooks/purity': 'off',
-      'react-hooks/static-components': 'off',
     },
   },
   compat.configs['flat/recommended'],
@@ -88,6 +84,7 @@ export default antfu(
     // tests
     files: ['**/*.test.ts', 'tests/**/*', '**/__tests__/**/*', 'scripts/**/*', '**/*.test.tsx'],
     rules: {
+      'react-hooks/immutability': 'off',
       'test/prefer-lowercase-title': 'off',
       'react/no-create-ref': 'off',
       'react/no-nested-components': 'off',
